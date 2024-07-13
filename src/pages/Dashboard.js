@@ -15,6 +15,8 @@ import TransactionsTable from "../components/TransactionsTable";
 import ChartComponent from "../components/Charts";
 import NoTransactions from "../components/NoTransactions";
 
+
+
 function Dashboard(){
   // const transactions=[
   //   {
@@ -41,6 +43,13 @@ function Dashboard(){
   const [expense,setExpense]=useState(0);
   const [totalBalance,setTotalBalance]=useState(0);
   const [currentBalance,setCurrentBalance]=useState(0);
+  const resetBalance=()=>{
+    // change
+    setIncome(0);
+    setExpense(0);
+    setTotalBalance(0);
+    setTransactions([]);
+  }
   const showExpenseModal = () => {
     setIsExpenseModalVisible(true);
   };
@@ -88,7 +97,7 @@ function calculateBalance(){
   setExpense(expensesTotal);
   setCurrentBalance(incomeTotal-expensesTotal);
 }
-
+  
   async function fetchTransactions() {
     setLoading(true);
     if (user) {
@@ -138,6 +147,8 @@ function calculateBalance(){
       showExpenseModal={showExpenseModal}
       showIncomeModal={showIncomeModal}
       currentBalance={currentBalance}
+      // change
+      resetBalance={resetBalance}
     />
     {transactions.length!=0?<ChartComponent sortedTransactions={sortedTransactions}/>:<NoTransactions/>}
       <AddExpenseModal
